@@ -2,7 +2,7 @@ spring:
   application:
     name: pgBouncer
   datasource:
-    url: jdbc:postgresql://localhost:6432/appdb
+    url: jdbc:postgresql://pgbouncer:6432/appdb
     username: appuser
     password: apppass
     driver-class-name: org.postgresql.Driver
