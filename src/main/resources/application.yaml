@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: pgBouncer
+  datasource:
+    url: jdbc:postgresql://localhost:6432/appdb
+    username: appuser
+    password: apppass
+    driver-class-name: org.postgresql.Driver
+
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    # inside docker network, app must reach pgBouncer by service name "pgbouncer"
+    url: jdbc:postgresql://pgbouncer:6432/appdb
