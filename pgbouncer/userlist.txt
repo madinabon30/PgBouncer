@@ -1,1 +1,2 @@
-"appuser" "md5d1e81d6b2736c814db8a006aeb59eb65"
+"pgbouncer_auth" "authpass"
+"appuser" "apppass"

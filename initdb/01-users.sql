@@ -4,7 +4,7 @@ CREATE USER pgbouncer_auth WITH PASSWORD 'authpass';
 -- App user (the one your app will use)
 CREATE USER appuser WITH PASSWORD 'apppass';
 
-ALTER DATABASE appdb OWNER appuser;
+ALTER DATABASE appdb OWNER to appuser;
 
 -- Allow the auth user to connect to the DB used for auth_query
 GRANT CONNECT ON DATABASE appdb TO pgbouncer_auth;

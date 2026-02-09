@@ -27,6 +27,7 @@ services:
       - "6432:6432"
     volumes:
       - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt:ro
     environment:
         # pgBouncer needs the password for auth_user to connect and run auth_query
         # edoburu/pgbouncer supports these env vars:
