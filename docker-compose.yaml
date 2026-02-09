@@ -1,21 +1,24 @@
 services:
   postgres:
+    image: postgres:16
     container_name: postgres
-    image: postgres
     environment:
       POSTGRES_DB: appdb
-      POSTGRES_USER: appuser
-      POSTGRES_PASSWORD: apppass
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespass
     ports:
       - "5432:5432"
-    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d appdb" ]
       interval: 5s
       timeout: 3s
       retries: 20
 
   pgbouncer:
+    container_name: pgbouncer
     image: edoburu/pgbouncer
     depends_on:
       postgres:
@@ -24,4 +27,16 @@ services:
       - "6432:6432"
     volumes:
       - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
-      - ./pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt:ro
+    environment:
+        # pgBouncer needs the password for auth_user to connect and run auth_query
+        # edoburu/pgbouncer supports these env vars:
+      PGBOUNCER_AUTH_USER: pgbouncer_auth
+      PGBOUNCER_AUTH_PASSWORD: authpass
+    healthcheck:
+      test: [ "CMD-SHELL", "nc -z 127.0.0.1 6432" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pgdata:

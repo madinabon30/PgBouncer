@@ -26,4 +26,4 @@ spring:
       on-profile: docker
   datasource:
     # inside docker network, app must reach pgBouncer by service name "pgbouncer"
-    url: jdbc:postgresql://localhost:6432/appdb
+    url: jdbc:postgresql://pgbouncer-pgbouncer:6432/appdb
