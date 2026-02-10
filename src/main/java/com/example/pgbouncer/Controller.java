@@ -1,10 +1,15 @@
 package com.example.pgbouncer;
 
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Map;
 
 @RestController
@@ -15,9 +20,10 @@ public class Controller {
         this.jdbc = jdbc;
     }
 
-    @GetMapping("/db")
-    public Map<String, Object> db() {
+    @GetMapping("/user")
+    public ResponseEntity<Void> db() {
         // proves we're going through pgBouncer into Postgres
-        return jdbc.queryForMap("select now() as now, current_database() as db, current_user as user");
+        jdbc.update("insert into users (name, phone) values ('Adam', '918765432')");
+        return ResponseEntity.noContent().build();
     }
 }
