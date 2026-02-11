@@ -18,39 +18,6 @@ public class PgBouncerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PgBouncerApplication.class, args);
-//
-//        List<String> urls = List.of(
-//                "http:127.0.0.1:8080/users"
-//        );
-//
-//        ExecutorService executor = Executors.newFixedThreadPool(20); // max 5 concurrent
-//        HttpClient client = HttpClient.newBuilder()
-//                .executor(executor)
-//                .connectTimeout(Duration.ofSeconds(2))
-//                .build();
-//
-//        List<CompletableFuture<String>> futures = urls.stream()
-//                .map(url -> CompletableFuture.supplyAsync(() -> {
-//                    try {
-//                        HttpResponse<String> resp = client.send(
-//                                HttpRequest.newBuilder(URI.create(url))
-//                                        .GET()
-//                                        .timeout(Duration.ofSeconds(3))
-//                                        .build(),
-//                                HttpResponse.BodyHandlers.ofString()
-//                        );
-//                        return resp.body();
-//                    } catch (Exception e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }, executor))
-//                .toList();
-//
-//        List<String> results = futures.stream()
-//                .map(CompletableFuture::join)
-//                .toList();
-//
-//        executor.shutdown();
     }
 
 }
