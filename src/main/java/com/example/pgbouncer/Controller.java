@@ -15,9 +15,16 @@ public class Controller {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<Void> db() {
+    public ResponseEntity<Void> user() {
         // proves we're going through pgBouncer into Postgres
         jdbc.update("insert into users (name, phone) values ('Adam', '918765432')");
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/user-add")
+    public ResponseEntity<Void> add() {
+        // proves we're going through pgBouncer into Postgres
+        jdbc.update("insert into users (name, phone) values ('Maria', '918888432')");
         return ResponseEntity.noContent().build();
     }
 }
